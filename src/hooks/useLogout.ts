@@ -1,6 +1,4 @@
-import DateService from "@/services/date-service";
 import useSWRMutation from "swr/mutation";
-import { useDate } from "./useDate";
 import AuthService from "@/services/auth-service";
 
 export const useLogout = () => {
