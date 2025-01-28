@@ -19,6 +19,12 @@ export default class AuthService {
     return response.data;
   }
 
+  static async logout(): Promise<AxiosResponse<AuthService>> {
+    const response = await axiosWithAuth.post("/logout");
+    localStorage.removeItem("accessToken")
+    return response.data;
+  }
+
   static async refresh() {
     try {
       const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });

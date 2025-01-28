@@ -30,8 +30,10 @@ export interface DateTimeProps {
 }
 
 export interface TimeProps {
+  day?: string;
   startTime: string;
   endTime: string;
+  updatedAt?: string;
 }
 
 export interface ButtonProps {

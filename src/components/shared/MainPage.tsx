@@ -1,32 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import React, { useState } from "react";
+import { Box } from "@mui/material";
 import { DateListItem } from "../ui";
-import { DateTimeProps } from "@/type";
-import DateService from "@/services/date-service";
+import { useDate } from "@/hooks/useDate";
 
 export const MainPage: React.FC = () => {
-  const [dateTimes, setDateTimes] = useState<DateTimeProps[] | undefined>([]);
   const [isIndex, setIsIndex] = useState<number | null>(null);
-
-  const getDateTimes = async () => {
-    try {
-      const response = await DateService.getDateTimes();
-      setDateTimes(response.data);
-      return response.data;
-    } catch (element) {
-      console.log(element);
-    }
-  };
-
-  useEffect(() => {
-    getDateTimes();
-  }, []);
+  const { dateTimeData } = useDate();
 
   return (
     <div>
       <Box display={"flex"} flexDirection={"column"} gap={"5px"}>
-        {dateTimes?.map((element: any, index: number) => (
+        {dateTimeData?.data?.map((element: any, index: number) => (
           <DateListItem
             key={`week-day-${index}`}
             day={element?.day}
