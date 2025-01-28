@@ -8,6 +8,11 @@ const axiosWithAuth = axios.create({
   baseURL: API_URL,
 });
 
+axiosWithAuth.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`
+  return config
+})
+
 axiosWithAuth.interceptors.response.use(
   (config) => {
     return config;

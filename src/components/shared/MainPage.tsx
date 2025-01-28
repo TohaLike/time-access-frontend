@@ -1,21 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { DateListItem } from "../ui";
-import DateService from "@/services/date-service";
 import { DateTimeProps } from "@/type";
+import DateService from "@/services/date-service";
 
 export const MainPage: React.FC = () => {
   const [dateTimes, setDateTimes] = useState<DateTimeProps[] | undefined>([]);
+  const [isIndex, setIsIndex] = useState<number | null>(null);
 
   const getDateTimes = async () => {
     try {
       const response = await DateService.getDateTimes();
       setDateTimes(response.data);
-      console.log(response.data);
       return response.data;
-    } catch (e) {
-      console.log(e);
+    } catch (element) {
+      console.log(element);
     }
   };
 
@@ -26,13 +26,16 @@ export const MainPage: React.FC = () => {
   return (
     <div>
       <Box display={"flex"} flexDirection={"column"} gap={"5px"}>
-        {dateTimes?.map((e: any, i: number) => (
+        {dateTimes?.map((element: any, index: number) => (
           <DateListItem
-            key={`week-day-${i}`}
-            title={e?.day}
-            startTime={e?.startTime}
-            endTime={e?.endTime}
-            updatedAt={e?.updatedAt}
+            key={`week-day-${index}`}
+            day={element?.day}
+            startTime={element?.startTime}
+            endTime={element?.endTime}
+            updatedAt={element?.updatedAt}
+            elementIndex={index}
+            openIndex={isIndex}
+            setOpenIndex={setIsIndex}
           />
         ))}
       </Box>
